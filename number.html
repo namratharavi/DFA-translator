@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<meta charset=utf-8>
+    <title>Translator</title>
+<head>
+<link href="materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+<style>
+#outPopUp {
+  position: absolute;
+  width: 500px;
+  height: 400px;
+  z-index: 15;
+  top: 25%;
+  left: 45%;
+  margin: -100px 0 0 -150px;
+  
+}
+p {
+    font-size: 18px;
+}
+.big {
+font-size: 22px;
+}
+</style>
+
+	<script src="data.js"></script>
+	<script src="finJson.js"> </script>
+	<script type="text/javascript">
+		function see()
+		{
+			var lang=sessionStorage.getItem('language');
+			if( document.getElementById("para1").innerHTML == "" )
+			{
+				//sessionStorage.removeItem("language");
+				document.getElementById("para1").innerHTML += lang;
+			}
+		}
+
+		function num()
+		{
+			//alert('inside num');
+			var num=document.getElementById("num").value;
+			//alert(num);
+			sessionStorage.setItem('fnumber',num);
+			//alert("number selected : "+num);
+			if(document.getElementById("para2").innerHTML != "")
+			{
+				document.getElementById("para2").innerHTML+="<b id=\"big\" > , </b>";
+			}
+			document.getElementById("para2").innerHTML+=num;
+			var jsontext = JSON.stringify(data);
+			var dates = JSON.parse(jsontext,dataReviver);
+			function dataReviver(key, value) {
+				//alert(dates.hasOwnProperty(num));
+				var a;
+				if(key==num)
+				{
+				   if (typeof value === 'string') 
+				   {
+						sessionStorage.setItem('tree',value);
+						//alert("value: "+value);
+				   }
+				}
+				
+				
+				return value;
+				};
+
+		}
+
+		function tran()
+		{
+			var tree = sessionStorage.getItem('tree');
+			treearr = tree.split("  ");
+			//alert(treearr);
+			var lang = sessionStorage.getItem('language');
+			output = finJson.translate(treearr,lang);
+			//alert("hi");
+			eng = finJson.translate(treearr,"english");
+			if(document.getElementById("para3").innerHTML != "")
+			{
+				document.getElementById("para3").innerHTML+="<b id=\"big\" >; </b>";
+				document.getElementById("para4").innerHTML+="<b id=\"big\" >; </b>";
+			}
+			document.getElementById("para3").innerHTML+=eng;
+			document.getElementById("para4").innerHTML+=output;
+		}
+	</script>
+</head>
+<body>
+<nav class="light-blue lighten-1" >
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo"></a>
+      <ul class="left hide-on-med-and-down">
+	  </ul>
+	  </div>
+	  </nav>
+	  </br>
+<div id="outPopUp">
+<form>
+<p>Enter the number of the question you would like to view</p></br>
+<input type="number" id="num" value="1" min="1" max="17656" size="14"/>
+<p onclick="see()" ><b> language selected: </b></p> <p id="para1" ></p>
+<p onclick="num()"><b> question num selected is: </b></p><p id="para2" ></p>
+<p onclick="tran()"><b> question selected is: </b></p><p id="para3" ></p>
+<p><b> translation of the question in the given language is: </b></p><p id="para4" ></p>
+</body>
+</html>

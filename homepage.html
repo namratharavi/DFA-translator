@@ -1,0 +1,75 @@
+<html>
+<head>
+<style>
+input[type=radio] {
+    display:none; 
+    margin:10px;
+}
+input[type=radio] + label {
+    display:inline-block;
+    margin:-2px;
+    padding: 4px 12px;
+    background-color:#555555;//#e7e7e7;//#f44336;#4CAF50;
+    border-color: #ddd;
+	vertical-align: middle;
+	line-height: 29px;
+	border: 1px solid #ccc;
+	border-radius:8px;
+	width:125px;
+	cursor: pointer;
+	color: white;
+	
+}
+input[type=radio]:checked + label { 
+   background-image: none;
+    background-color:#d0d0d0;
+	outline: 0;
+}
+input[type=button] {
+	background-color: #4db8ff;
+	line-height: 29px;
+	width:155px;
+}
+p {
+    font-size: 20px;
+}
+h1 {
+background-color: #4db8ff;
+font-size: 56px;
+}
+body {    
+    margin: 0 !important;
+    padding: 0 !important;
+}
+</style>
+<script>
+function check(){
+	languageSelected=document.querySelector('input[name="lang"]:checked').value;
+	//alert(languageSelected);
+	sessionStorage.setItem('language',languageSelected);
+}
+</script>
+</head>
+<body align="center" >
+
+<h1>TRANSLATOR</h1>
+	
+	<div>
+		<p>Select the language you want to see the question in</p>
+		</div>
+		</br>
+<div >
+	<input type="radio" id="eng" name="lang" value="english" onclick="check()">&nbsp &nbsp
+       <label for="eng">ENGLISH</label>
+    <input type="radio" id="kan" name="lang" value="kannada" onclick="check()">&nbsp &nbsp
+       <label for="kan"> KANNADA</label>
+    <input type="radio" id="hin" name="lang" value="hindi" onclick="check()">&nbsp &nbsp
+       <label for="hin">HINDI</label> 
+</div>
+</br>
+</br>
+<div>
+		<input type="button" value="View the questions" onclick="document.location='number.html'" />
+	</div>
+</body>
+</html>
